@@ -1,7 +1,6 @@
 import React, {Component} from  "react";
-require("../css/common.css");
-require("../css/login.css");
 
+// 头部
 class Header extends Component {
 	constructor (props) {
 		super(props);
@@ -11,77 +10,51 @@ class Header extends Component {
 			<div className="header">
 				<ul className="header_list">
 	               <li className="header_btn iconfont icon-zuo"></li>
-	               <li className="header_tit">登录</li>
-	               <li className="header_btn"></li>
+	               <li className="header_tit">列表</li>
+	               <li className="header_btn mar_right15">搜索</li>
 	           </ul>
 			</div>
 		)
 	}
 }
+
+// 主体内容
 class Content extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			if_show: false,
 			username: "zou",
-			pw: "321"
+			pw: "321"		
 		}		
-	}
-	show_pw() {
-		this.setState({
-			if_show: !this.state.if_show
-		})
-	}
-	filter_pw(e) {
-		this.setState({
-			pw: e.target.value.replace(/sb/g,"")
-		});
-		//e.target.value = e.target.value.replace(/sb/g,"")
-	}
-	filter_username(e) {
-		this.setState({
-			username: e.target.value.replace(/a/g,"")
-		});
-	}
-	login() {
-		console.log(this.state.username);
-		console.log(this.state.pw);
-	}
+	}	
 	render() {
-		var password_type = this.state.if_show ? "text" : "password";
+		let content_style = {
+			"overflow-y": this.props.has_iscroll ? "hidden" : "auto"
+		}
 		return (
-			 <div className="content">
-            	<ul className="login_list">
-            		<li>
-            			<input type="text" className="username" value={this.state.username} placeholder="请输入用户名" onChange={(ev) => this.filter_username(ev)} / >
-            		</li>
-            		<li>
-            			<input type={password_type} className="password" value={this.state.pw} onChange={(ev) => this.filter_pw(ev)} placeholder="请输入密码" />
-            		</li>
-            		<li className="ch_item">
-            			<label>
-            				<input onClick={() => this.show_pw()} type="checkbox" />
-            				<span>显示密码</span>
-            			</label>
-            			<a className="forget">忘记密码？</a>
-            		</li>
-            		<li className="ch_item">
-            			<label>
-            				<input type="checkbox" />
-            				<span>记住密码</span>
-            			</label>
-            		</li>
-            		<li>
-            			<input type="button" className="login_btn" value="登录"/>
-            		</li>
-            		<li>
-            			<a href="reg.html" className="to_reg">注册</a>
-            		</li>
-            	</ul>
-            </div>
+            <div className="content has_sub_header has_footer">
+            	<p className="refresh_text">下拉刷新</p>
+            	<div className="wraper_scroll" id="wraper_scroll">
+            		<div className="scroll">
+	            		<ul className="pro_list">{
+	            			this.props.product_data.map((ele, ind) => (
+	            				<li key={ind} className="pro_item"> 
+			                        <a href="###" className="pic"><img src={ele.goodsListImg} alt="" /></a> 
+			                        <p className="pro_name">{ele.goodsName}</p>
+			                        <p className="price"><em>{ele.price}</em> <del>￥668</del></p> 
+			                    </li>
+	            			))	            			
+	            		}	            			
+	            	    </ul>
+	            	</div>
+            	</div>           	
+            </div>		
 		)
 	}
 }
+
+// 底部
 class Footer extends Component {
 	constructor (props) {
 		super(props);
