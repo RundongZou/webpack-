@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="baidu-site-verification" content="oBuuVIy8pS" />
+    <title>邹润东</title>
+    <link rel="stylesheet" href="css/animation.css" />
+    <script src="js/jquery-3.1.1.js"></script>
+
+
+    <script >
+    $(document).ready(function(){
+         $("a").on("click",function(e){
+            $(".charector").removeClass("paused");
+            $(".charector").attr("class","charector "+$(e.target).attr("class").split("-")[1]);
+        });
+         $(".btn-paused").click(function(){
+            $(".charector").addClass('paused');
+         })
+    })
+
+    </script>
+</head>
+<body>
+
+    <div class="charector-wrap" id="charector-wrap">
+        <div class="charector">
+
+        </div>
+    </div>
+
+    <a class="speed-fast" href="#none">快速</a>
+    <a class="speed-normal" href="#none">中速</a>
+    <a class="speed-slow" href="#none">慢速</a>
+    <button class="btn-paused">暂停</button>
+
+
+
+</body>
+</html>

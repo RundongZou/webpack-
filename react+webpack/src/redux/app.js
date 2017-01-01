@@ -23,19 +23,26 @@ class My_button extends Component {
 	constructor (props) {
 		super(props)
 	}
-	fn_click () {
-		//console.log(this)
-		var Action = {
-			type: "ADD_ITEM"
-		};
+	fn_click (flag) {
+		if (flag) {
+			var Action = {
+				type: "ADD_ITEM"
+			}
+		} else {
+			var Action = {
+				type: "DEL_ITEM"
+			}
+		}		
 		console.log('触发action')
-		store.dispatch(Action)
-		
+		store.dispatch(Action)		
 	}
 	
 	render () {
 		return (
-			<button onClick={() => this.fn_click()}>{this.props.children}</button>
+			<div>
+				<button onClick={() => this.fn_click(1)}>{this.props.children}</button>
+				<button onClick={() => this.fn_click(0)}>删除一项</button>
+			</div>			
 		)
 	}
 }
@@ -50,19 +57,19 @@ class List_wrap extends Component {
 		// 监听
 		store.subscribe(() => {
 			//console.log(222)
-			//获取最新的state
-			console.log("state更新，最新的state是：  " + store.getState()) 
+			//获取最新的state			
 			//	更新顶层组件的state
 			this.setState({
 				list_data: store.getState().list_data
 			})
+			console.log("state更新，最新的state是：  " + store.getState()) 
 		})
 	}
 	render () {
 		return (
 			<div className="wrap">
-				<List list_data={this.state.list_data}/>
-				<My_button />
+				<My_button>添加一项</My_button>
+				<List list_data={this.state.list_data}/>				
 			</div>
 		)
 	}
