@@ -10,15 +10,37 @@ class Header extends Component {
 			<div className="header">
 				<ul className="header_list">
 	               <li className="header_btn iconfont icon-zuo"></li>
-	               <li className="header_tit">列表</li>
+	               <li className="header_tit">{this.props.tit}</li>
 	               <li className="header_btn mar_right15">搜索</li>
 	           </ul>
 			</div>
 		)
 	}
 }
+Header.defaultProps = {
+	has_back: true
+}
+
+// subheader
+class Sub_header extends Component {
+	constructor (props) {
+		super(props);
+	}
+	render () {
+		return (
+			<div className="sub_header">
+				<ul className="class_list">
+					{
+						this.props.class_data.map((ele, ind) => <li key={ind}>{ele.className}</li>)
+					}
+				</ul>
+			</div>
+		)
+	}
+}
 
 // 主体内容
+
 class Content extends Component {
 	constructor(props) {
 		super(props);
@@ -30,27 +52,32 @@ class Content extends Component {
 	}	
 	render() {
 		let content_style = {
-			"overflow-y": this.props.has_iscroll ? "hidden" : "auto"
+			"overflowY": this.props.has_iscroll ? "auto" : "hidden"
 		}
+		let content_class = "content"
+							+ (this.props.has_footer ? " has_footer" : "")
+							+ (this.props.has_sub_header ? " has_sub_header" : "");
+							
 		return (
-            <div className="content has_sub_header has_footer">
+            <div className={content_class} style={content_style}>
             	<p className="refresh_text">下拉刷新</p>
-            	<div className="wraper_scroll" id="wraper_scroll">
-            		<div className="scroll">
-	            		<ul className="pro_list">{
-	            			this.props.product_data.map((ele, ind) => (
-	            				<li key={ind} className="pro_item"> 
-			                        <a href="###" className="pic"><img src={ele.goodsListImg} alt="" /></a> 
-			                        <p className="pro_name">{ele.goodsName}</p>
-			                        <p className="price"><em>{ele.price}</em> <del>￥668</del></p> 
-			                    </li>
-	            			))	            			
-	            		}	            			
-	            	    </ul>
-	            	</div>
-            	</div>           	
+            	{
+            		this.props.has_iscroll ? 
+            			<div className="scroll_wrap" ref="scrollWrap">
+            				<div className="scroller">{this.props.children}</div>
+            			</div> : this.props.children
+            	}           	       	
             </div>		
 		)
+	}
+	componentDidMount () {
+		//组件渲染完成后， 获取scroll_wrap, 创建iscroll
+		//如果需要iscroll再创建
+		this.props.has_scroll && (this.my_scroll = new IScroll(this.refs.scrollWrap));
+	}
+	componentDidUpdate () {
+		//组件更新的时候，也更新iscroll
+		this.props.has_scroll && this.my_scroll.refresh();
 	}
 }
 
@@ -74,4 +101,4 @@ class Footer extends Component {
 	}
 }
 
-export { Header, Content, Footer }
+export { Header, Sub_header, Content, Footer }

@@ -12,7 +12,7 @@ class List extends Component {
 		return (
 			<ul className="list">
 				{
-					this.props.list_data.map((ele, ind)=> <li key={ind}>{ele}</li>)
+					this.props.list_data.map((ele, ind) => <li key={ind}>{ele}</li>)
 				}
 			</ul>
 		)

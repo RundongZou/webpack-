@@ -1,27 +1,12 @@
-import {Header, Content, Footer} from "../components/list_common";
+import { Header, Sub_header, Content, Footer } from "../components/list_common";
 import React, {Component} from  "react";
 import ReactDOM from "react-dom";
+import Pro_list from "../components/pro_list";
 
 require("../css/common.css");
 require("../css/list.css");
 
-// subheader
-class Sub_header extends Component {
-	constructor (props) {
-		super(props);
-	}
-	render () {
-		return (
-			<div className="sub_header">
-				<ul className="class_list">
-					{
-						this.props.class_ata.map((ele, ind) => <li key={ind}>{ele.className}</li>)
-					}
-				</ul>
-			</div>
-		)
-	}
-}
+
 
 // 最外面的主体
 class List_page extends Component {
@@ -49,10 +34,12 @@ class List_page extends Component {
 	}
 	render () {
 		return (
-			<div id="login_page">
-				<Header/>		
+			<div className="page" id="list_page">
+				<Header tit="列表"/>		
 				<Sub_header class_data={this.state.class_data}></Sub_header>
-				<Content product_data={this.state.product_data}></Content>
+				<Content has_footer={true} has_sub_header={true} has_iscroll={true}>
+					<Pro_list product_data={this.state.product_data} />
+				</Content>
 				<Footer/>
 			</div>
 		)
