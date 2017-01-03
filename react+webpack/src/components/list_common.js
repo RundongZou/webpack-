@@ -29,18 +29,13 @@ class Sub_header extends Component {
 	render () {
 		return (
 			<div className="sub_header">
-				<ul className="class_list">
-					{
-						this.props.class_data.map((ele, ind) => <li key={ind}>{ele.className}</li>)
-					}
-				</ul>
+				{this.props.children}
 			</div>
 		)
 	}
 }
 
 // 主体内容
-
 class Content extends Component {
 	constructor(props) {
 		super(props);
@@ -52,7 +47,7 @@ class Content extends Component {
 	}	
 	render() {
 		let content_style = {
-			"overflowY": this.props.has_iscroll ? "auto" : "hidden"
+			"overflowY": this.props.has_iscroll ? "hidden" : "auto"
 		}
 		let content_class = "content"
 							+ (this.props.has_footer ? " has_footer" : "")
@@ -60,7 +55,6 @@ class Content extends Component {
 							
 		return (
             <div className={content_class} style={content_style}>
-            	<p className="refresh_text">下拉刷新</p>
             	{
             		this.props.has_iscroll ? 
             			<div className="scroll_wrap" ref="scrollWrap">
