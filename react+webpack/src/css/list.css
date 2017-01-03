@@ -46,3 +46,8 @@
 .content {
 	overflow-y: auto;
 }
+
+/*下拉刷新 文字*/
+.refresh_text {
+	position: absolute;
+}
